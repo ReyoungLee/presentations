@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>About Miniprogram</title>
+		<link rel="stylesheet" href="../css/reveal.css">
+		
+		<link rel="stylesheet" href="../css/theme/league.css">
+		<!-- <link rel="stylesheet" href="../css/theme/white.css"> -->
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../lib/css/zenburn.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../css/print/pdf.css' : '../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>小程序的故事</h2>
+				</section>
+				<section>
+					<section data-notes="about">
+						<h2>小程序是什么</h2>
+						<ul>
+							<li>"不需要下载安装即可使用；触手可及，用完即走"</li>
+							<li>All About Web: xml, css, javascript</li>
+							<li>Wechat</li>
+						</ul>
+					</section>
+					<section>
+						<h3>公众号 ➡ 订阅号/服务号 ➡ 小程序</h3>
+						<p>
+							张小龙：越来越多产品通过公众号来做，因为这里开发、获取用户和传播成本更低。拆分出来的服务号并没有提供更好的服务，所以微信内部研究的新形态，叫「微信小程序」。
+						</p>
+					</section>
+					<section>
+						<h3>入口</h3>
+						<ul>
+							<li>二维码
+								<ul>
+									<li>url</li>
+								</ul>
+							</li>
+							<li>搜索</li>
+							<li>用户分享</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>一些原理</h2>
+						<ul>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/details.html" target="blank">
+									Webview & DOM
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/quickstart/basic/file.html#wxml-%E6%A8%A1%E6%9D%BF"  target="blank">
+									Wxml & MVVM
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/route.html" target="blank">
+									路由
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/component/native-component.html" target="blank">
+									组件 & 原生组件
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/operating-mechanism.html" target="blank">
+									启动 加载
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/api/" target="blank">
+									API
+								</a>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<style>
+						.slide-background .present {
+							background-size: contain;
+						}
+					</style>
+					<section>
+						<h2>如何开始</h2>
+					</section>
+					<section>
+						<img src="new.png" style="width: 50%;">
+					</section>
+					<section>
+						<img src="register.png">
+					</section>
+					<section>
+						<img src="appid.png">
+					</section>
+					<section>
+						<a href="https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/capabilities.html" target="blank">
+							<img src="new2.png" style="width: 50%;">
+						</a>
+					</section>
+					<section>
+						<img src="ide.png">
+					</section>
+					<section>
+						<img src="remote.png">
+						<img src="remote_dt.png" class="fragment" style="position: absolute; right: 20px;">
+					</section>
+					<section data-background="code.png">
+						<h4 style="color: #fff">一些文件</h4>
+						<ul style="color: #fff">
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/config.html#%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE"
+								 target="blank">
+									page/index.json
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/config.html"
+								 target="blank">
+									app.json
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html" target="blank">
+									project.config.json
+								</a>
+							</li>
+							<li>
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/app-service/app.html" target="blank">
+									app.js & app.wxss
+								</a>
+							</li>
+							<li class="fragment">
+								以及&emsp;
+								<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/" target="blank">
+									components/*
+								</a>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h2>
+						Code
+					</h2>
+				</section>
+				<section>
+					<section>
+						<h2>About Mpx</h2>
+					</section>
+					<section>
+						<pre style="font-size: 36px; background: #23272f; color: #fff;">npm i -g <span style="background: #b61654; font-weight: 600">@didi/mpx-cli</span> <br>--registry=http://npm.intra.xiaojukeji.com</pre>
+					</section>
+					<section>
+						<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/development.html" target="blank">
+							<img src="mpx.png">
+						</a>
+					</section>
+					<section data-background="code2.png" style="color: #fff">
+						<h4 style="margin-top: 230px; color: #fff">另外一些文件</h4>
+						<ul>
+							<li>mpx: template & script & style</li>
+							<li>webpack</li>
+							<li>package</li>
+						</ul>
+					</section>
+					<section data-background="code3.png">
+						<h3>What's more</h3>
+						<ul>
+							<li>
+								<a href="http://10.96.94.162/mpx/single/script-enhance.html#%E6%96%B0%E5%A2%9E%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F" target="blank">
+									computed
+								</a>
+							</li>
+							<li>
+								<a href="http://10.96.94.162/mpx/single/script-enhance.html#%E8%A7%82%E5%AF%9F%E5%B1%9E%E6%80%A7-watch" target="blank">
+									watch
+								</a>
+							</li>
+							<li>
+								<a href="http://10.96.94.162/mpx/store/" target="blank">
+									store
+								</a>
+								<ul>
+									<li>getter</li>
+									<li>mutation</li>
+									<li>action</li>
+								</ul>
+							</li>
+							<li>
+								<a href="http://10.96.94.162/mpx/extend/promisify.html" target="blank">
+									promisify
+								</a>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Done</h2>
+						<pre style="font-size: 36px; background: #23272f; color: #fff;">https://mp.weixin.qq.com</pre>
+					</section>
+					<section>
+						<img src="upload.png">
+					</section>
+					<section>
+						<style>
+							#abs-pen {
+								position: absolute;
+								border: none;
+								background: none;
+								top: 100px;
+								left: 130px;
+								box-shadow: none;
+								outline: none;
+								width: 40px;
+							}
+						</style>
+						<img src="pen.png" id="abs-pen">
+						<img src="login_scan.png">
+					</section>
+					<section>
+						<img src="ver.png">
+					</section>
+					<section>
+						<img src="yesterday.png">
+					</section>
+					<section>
+						<img src="visitors.png">
+					</section>
+					<section>
+						<img src="op.png">
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>坑</h2>
+					</section>
+					<section>
+						<ul style="width: 600px; font-size: 50px; list-style: url(pen.png); transform: scale(1.4)">
+							<li>
+								<pre><code class="hljs">wx.doSomething() </code><code>=> &lt;navigator/&gt; & &lt;button/&gt;</code></pre>
+							</li>
+							<li>
+								<pre><code class="hljs">wx.navigateToMiniProgarm()</code></pre>
+							</li>
+							<li>
+								<pre><code class="hljs">&lt;hidenInput /&gt;</code></pre>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<ul style="width: 600px; font-size: 50px; list-style: url(pen.png); transform: scale(1.4)">
+							<li>
+								<pre><code class="hljs">children component style</code></pre>
+							</li>
+							<li>
+								<pre><code class="hljs">damn account</code></pre>
+							</li>
+							<li>
+								<pre><code class="hljs">render: data & prop</code></pre>
+							</li>
+							<li>
+								<pre><code class="hljs">input: type password</code></pre>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section style="text-align: left">
+					<h2>The End</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="../lib/js/head.min.js"></script>
+		<script src="../js/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'convex',
+				dependencies: [
+					{ src: '../plugin/markdown/marked.js' },
+					{ src: '../plugin/markdown/markdown.js' },
+					{ src: '../plugin/notes/notes.js', async: true },
+					{ src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

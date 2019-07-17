@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Liruiyang</title>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/league.css">
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+			.reveal .slides h2 {
+				margin-bottom: 50px;
+				margin-top: 0;
+			}
+			.reveal .slides .present{
+				transform: translateY(-30px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<Section>
+					<h2>Hello</h2>
+				</Section>
+				<section>
+					<section data-notes="what did i do in last quarter">
+						<h2>Review</h2>
+						<ul>
+							<li>Mis-factory</li>
+							<li>Form-factory</li>
+							<li>Titan</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Mis-factory & Form-factory</h3>
+						<ul>
+							<li>editor</li>
+							<ul>
+								<li>data-tree</li>
+								<li>ui-tree</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<h3>Titan</h3>
+						<ul>
+							<li>node - deploy</li>
+							<li>mock - middleware</li>
+							<li>template</li>
+							<li>flow - menu</li>
+							<li>portal & home</li>
+							<ul>
+								<li>refactor</li>
+							</ul>
+							<li>others (common)</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<style>
+						#skl-til {
+							margin-bottom: 200px;
+						}
+						#skl-til span:first-child{
+							float: left;
+						}
+						#skl-til span:last-child{
+							float: right;
+						}
+						#skills {
+							position: relative;
+							height: 240px;
+							border-bottom: 3px #fff solid;
+							overflow: hidden;
+						}
+						#skills:before, #skills:after {
+							display: block;
+							content: '';
+							width: 0;
+							height: 0;
+							position: absolute;
+							bottom: -16px;
+							border-style: solid;
+						}
+						#skills:before {
+							border-width: 16px 64px;
+							left: -64px;
+							border-color: transparent #fff transparent transparent;
+						}
+						#skills:after {
+							right: -64px;
+							border-width: 16px 64px;
+							border-color: transparent transparent transparent #fff;
+						}
+						#skills > div {
+							position: absolute;
+						}
+					</style>
+					<h3 id="skl-til"><span>Skills</span><span>weakness</span></h3>
+					<div id="skills">
+						<div style="left:10px;top:0;font-size:36px;">Javascript</div>
+						<div style="left:40px;top:40px;font-size:32px;">React</div>
+						<div style="left:10px;top:80px;font-size:36px;">Css & Sass Less</div>
+						<div style="left:0;top:160px;font-size:28px;">Photoshop</div>
+
+						<div style="right:140px;top:0;font-size:36px;">Nodejs</div>
+						<div style="right:0;top:50px;font-size:32px;">Vue</div>
+						<div style="right:100px;top:100px;font-size:22px;">Webpack</div>
+						<div style="right:80px;top:160px;font-size:20px;">Illustrator</div>
+
+						<div style="right:460px;top:0;font-size:32px;">Mini program</div>
+						<div style="right:420px;top:50px;font-size:30px;">Linux</div>
+						<div style="right:400px;top:80px;font-size:22px;">Mobx</div>
+						<div style="right:360px;top:140px;font-size:18px;">Remote testing & debugging & ...</div>
+					</div>
+				</section>
+				<section data-notes="my plan of the coming quarter">
+					<h2>Plan</h2>
+					<ul>
+						<li>Mini program & Vue</li>
+						<li>Titan</li>
+					</ul>
+				</section>
+				<section data-notes="what i hope my team helps me">
+					<h2>Team's Help</h2>
+					<ul>
+						<li>Vue</li>
+					</ul>
+				</section>
+				<section data-notes="my thoughts besides my works">
+					<h2>What's More</h2>
+					<ul>
+						<li>User experience</li>
+						<li>Skills</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'convex',
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

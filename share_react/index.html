@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>About React</title>
+		<link rel="stylesheet" href="../css/reveal.css">
+		<link rel="stylesheet" href="../plugin/highlight/prism.css">
+		
+		<link rel="stylesheet" href="../css/theme/league.css">
+		<!-- <link rel="stylesheet" href="../css/theme/white.css"> -->
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../lib/css/zenburn.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../css/print/pdf.css' : '../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+			/* .reveal section img {
+				max-height: 560px;
+			} */
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>一些使用React的姿势</h2>
+				</section>
+				<section>
+						<h3>主要内容</h3>
+						<ul>
+							<li>基本操作</li>
+							<li>setState</li>
+							<li>高阶组件</li>
+							<li>Hooks</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>基本操作</h2>
+					</section>
+					<section>
+						<!-- <img src="./code/basic.png" alt=""> -->
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							class Test extends React.Component {
+								constructor(props) {
+									super(props)
+								}
+								state = {
+									haha: 1,
+								}
+								handleClick = () => {
+									this.setState({
+										haha: this.state.haha + 1,
+									})
+								}
+								render() {
+									return (
+										&lt;p onClick={this.handleClick}>
+											the data haha is{this.state.haha}
+										&lt;/p>
+									)
+								}
+							}
+							ReactDOM.render(&lt;Test />, document.body)
+						</code></pre>
+					</section>
+					<section>
+						<h3>生命周期</h3>
+						<ul>
+							<li><code class="language-jsx">ComponentWillMount()</code></li>
+							<li><code class="language-jsx">ComponentDidMount()</code></li>
+							<li><code class="language-jsx">ComponentWillUpdate(nextProps, nextState)</code></li>
+							<li><code class="language-jsx">ComponentDidUpdate(nextProps, nextState)</code></li>
+							<li><code class="language-jsx">componentWillUnmount()</code></li>
+						</ul>
+					</section>
+					<section>
+						<h3>以及</h3>
+						<ul>
+							<li style="text-decoration: line-through;"><code class="language-jsx">componentWillReceiveProps(nextProps)</code></li>
+							<li><code class="language-jsx">shouldComponentUpdate(nextProps, nextState)</code></li>
+						</ul>
+					</section>
+					<section>
+						<h3>JSX</h3>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							render() {
+								return (
+									&lt;Scroller>
+									{data ?
+										&lt;ul>
+											{data.map(e => (
+												&lt;li>{e.name}: {e.value}&lt;/li>
+											))}
+										&lt;/ul> :
+										&lt;NoData />
+									}	
+									&lt;/Scroller>
+								)
+							}
+						</code></pre>
+					</section>
+				</section>
+				<section style="text-align: left">
+					<h2>The End</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="../lib/js/head.min.js"></script>
+		<script src="../js/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'convex',
+				dependencies: [
+					{ src: '../plugin/markdown/marked.js' },
+					{ src: '../plugin/markdown/markdown.js' },
+					{ src: '../plugin/notes/notes.js', async: true },
+					// { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: '../plugin/highlight/prism.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
