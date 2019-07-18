@@ -20,33 +20,44 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 		<style>
-			/* .reveal section img {
-				max-height: 560px;
-			} */
+			.nowrap {
+				white-space: nowrap!important;
+			}
+			.reveal h2, .reveal h3 {
+				text-transform: none;
+			}
+			.reveal blockquote {
+				width: 90%;
+				text-align: left;
+			}
+			blockquote em {
+				color: yellow
+			}
 		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h2>一些使用React的姿势</h2>
+					<h2>React: Think in js</h2>
 				</section>
 				<section>
-						<h3>主要内容</h3>
-						<ul>
-							<li>基本操作</li>
-							<li>setState</li>
-							<li>高阶组件</li>
-							<li>Hooks</li>
-						</ul>
-					</section>
+					<h2>view = fn(data)</h2>
+				</section>
+				<section>
+					<h3>简介</h3>
+					<ul>
+						<li>基本操作</li>
+						<li>setState</li>
+						<li>高阶组件</li>
+						<li>Hooks & Fiber</li>
+					</ul>
 				</section>
 				<section>
 					<section>
 						<h2>基本操作</h2>
 					</section>
 					<section>
-						<!-- <img src="./code/basic.png" alt=""> -->
 						<pre><code class="language-jsx" style="max-height: 500px;">
 							class Test extends React.Component {
 								constructor(props) {
@@ -77,25 +88,33 @@
 							<li><code class="language-jsx">ComponentWillMount()</code></li>
 							<li><code class="language-jsx">ComponentDidMount()</code></li>
 							<li><code class="language-jsx">ComponentWillUpdate(nextProps, nextState)</code></li>
-							<li><code class="language-jsx">ComponentDidUpdate(nextProps, nextState)</code></li>
+							<li><code class="language-jsx">ComponentDidUpdate(nextProps, nextState, snapshot)</code></li>
 							<li><code class="language-jsx">componentWillUnmount()</code></li>
+							<li style="visibility: hidden"></li>
+							<li><code class="language-jsx" style="text-decoration: line-through; ">componentWillReceiveProps(nextProps)</code></li>
 						</ul>
 					</section>
 					<section>
 						<h3>以及</h3>
 						<ul>
-							<li style="text-decoration: line-through;"><code class="language-jsx">componentWillReceiveProps(nextProps)</code></li>
-							<li><code class="language-jsx">shouldComponentUpdate(nextProps, nextState)</code></li>
+							<li><code class="language-jsx nowrap">shouldComponentUpdate (nextProps, nextState)</code></li>
+							<li>
+								<code class="language-jsx nowrap">static getDerivedStateFromProps <br />(nextProps, prevState) /** React 16 */</code>
+							</li>
+							<li><code class="language-jsx nowrap">getSnapshotBeforeUpdate (prevProps, prevState) <br />/** React 16 */</code></li>
+							<li><code class="language-jsx nowrap">componentDidCatch (error, info) /** React 16 */</code></li>
 						</ul>
 					</section>
 					<section>
 						<h3>JSX</h3>
 						<pre><code class="language-jsx" style="max-height: 500px;">
 							render() {
+								const { data } = this.props
 								return (
 									&lt;Scroller>
-									{data ?
-										&lt;ul>
+									{this.props.children ||
+									data ?
+										&lt;ul ref={e => this.list = e}>
 											{data.map(e => (
 												&lt;li>{e.name}: {e.value}&lt;/li>
 											))}
@@ -106,6 +125,83 @@
 								)
 							}
 						</code></pre>
+					</section>
+					<section  id="fragments">
+						<h3>一些规则</h3>
+						<ul>
+							<li>标签首字母：组件大写 html小写</li>
+							<li>class: className</li>
+							<li>事件函数驼峰命名</li>
+							<li>组件顶层单标签<span class="fragment fade-up" style="font-style: italic">( React 16: 数组或字符串 )</span></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>setState</h2>
+					</section>
+					<section>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							this.setState({
+								key: value,
+							})
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							setState(updater[, callback])
+							// updater: (state, props) => stateChange
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							this.setState((state, props) => {
+								return { counter: state.counter + props.step }
+							})
+						</code></pre>
+					</section>
+					<section>
+						<blockquote cite="https://zh-hans.reactjs.org/docs/react-component.html#setstate">
+							&ldquo;
+							setState() 将对组件 state 的更改排入<em>队列</em>，并通知 React 需要使用更新后的 state 重新渲染此组件及其子组件。
+							<!-- setState() enqueues changes to the component state and tells React that this component and its children need to be re-rendered with the updated state. -->
+							&rdquo;
+						</blockquote>
+						<blockquote cite="https://zh-hans.reactjs.org/docs/react-component.html#setstate">
+							&ldquo;
+							将 setState() 视为<em>请求</em>而不是立即更新组件的命令。为了更好的感知性能，React会<em>延迟</em>调用它，然后通过一次传递更新多个组件。React并不会保证 state 的变更会立即生效。
+							&rdquo;
+						</blockquote>
+					</section>
+					<section>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							this.setState({ quantity: this.state.quantity + 1 })
+							this.setState({ quantity: this.state.quantity + 1 })
+						</code></pre>
+						<div style="transform: rotate(90deg)">
+							<span style="transform: scale(2, 1.2) translate(8px);display: inline-block; font-weight: 600;">=</span>
+							<span style="transform: scaleY(2.1) translate(0, -1px);display: inline-block;">></span>
+						</div>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							Object.assign(
+								previousState,
+								{ quantity: state.quantity + 1 },
+								{ quantity: state.quantity + 1 },
+								...
+							)
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							this.setState(state => ({ quantity: state.quantity + 1 }))
+							this.setState(state => ({ quantity: state.quantity + 1 }))
+							/** this works */
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>高阶组件</h2>
 					</section>
 				</section>
 				<section style="text-align: left">
