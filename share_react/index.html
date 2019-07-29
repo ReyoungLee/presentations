@@ -126,6 +126,34 @@
 							}
 						</code></pre>
 					</section>
+					<section>
+						<h3>JSX - Compiled</h3>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							React.createElement(
+								Scroller,
+								null,
+								_this.props.children ||
+								data ?
+									React.createElement(
+										"ul",
+										{
+											ref: function ref(e) {
+												return _this.list = e;
+											}
+										},
+										data.map(function (e) {
+											return React.createElement(
+												"li",
+												null,
+												e.name,
+												": ",
+												e.value
+											);
+										})) :
+									React.createElement(NoData, null)
+							);
+						</code></pre>
+					</section>
 					<section  id="fragments">
 						<h3>一些规则</h3>
 						<ul>
@@ -203,6 +231,87 @@
 					<section>
 						<h2>高阶组件</h2>
 					</section>
+					<section>
+						<h3>高阶函数</h3>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							hof(fn) {...}
+							hof(...) { return fn}
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							getPhraseToCamel(phraseToUnderscore) {
+								return str => {
+									return underscoreToCamel(phraseToUnderscore(str))
+								}
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h3>so...高阶组件</h3>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							higherOrderComponent(Component) {
+								return (
+									&lt;Wrapper>
+										&lt;Component {...props} propA={...}/>
+									&lt;/Wrapper>
+								)
+							}
+						</code></pre>
+					</section>
+					<section>
+						<img src="thinking.png" style="border: none; background: none; box-shadow: none; width: 300px;">
+					</section>
+					<section>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							higherOrderComponent(Component) {
+								return <b style="background: magenta; border-radius: 3px;">(props) =></b> (
+									&lt;Wrapper>
+										&lt;Component {...props} propA={...}/>
+									&lt;/Wrapper>
+								)
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h4>纯组件（无状态组件）</h4>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							const PureComponent = ({data, children}) {
+								return (
+									&lt;Scroller>
+										{children ||
+										data ?
+											&lt;ul ref={e => this.list = e}>
+												{data.map(e => (
+													&lt;li>{e.name}: {e.value}&lt;/li>
+												))}
+											&lt;/ul> :
+											&lt;NoData />
+										}
+									&lt;Scroller />
+								)
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h3>🌰</h3>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							/** Menu.jsx */
+							const withMenu = Content => props => (
+								&lt;Layout>
+									&lt;SideMenu />
+									&lt;Layout className="frame-main" >
+										&lt;Content {...props} />
+									&lt;/Layout>
+								&lt;/Layout>
+							)
+							/** Content.jsx */
+							&lt;Route path="/workorder/task" component={withMenu(Workbench)} />
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h2>Hooks & Fiber</h2>
 				</section>
 				<section style="text-align: left">
 					<h2>The End</h2>
