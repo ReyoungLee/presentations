@@ -88,7 +88,7 @@
 							<li><code class="language-jsx">ComponentWillMount()</code></li>
 							<li><code class="language-jsx">ComponentDidMount()</code></li>
 							<li><code class="language-jsx">ComponentWillUpdate(nextProps, nextState)</code></li>
-							<li><code class="language-jsx">ComponentDidUpdate(nextProps, nextState, snapshot)</code></li>
+							<li><code class="language-jsx">ComponentDidUpdate(prevProps, prevState, snapshot)</code></li>
 							<li><code class="language-jsx">componentWillUnmount()</code></li>
 							<li style="visibility: hidden"></li>
 							<li><code class="language-jsx" style="text-decoration: line-through; ">componentWillReceiveProps(nextProps)</code></li>
@@ -154,7 +154,7 @@
 							);
 						</code></pre>
 					</section>
-					<section  id="fragments">
+					<section>
 						<h3>一些规则</h3>
 						<ul>
 							<li>标签首字母：组件大写 html小写</li>
@@ -276,7 +276,7 @@
 					<section>
 						<h4>纯组件（无状态组件）</h4>
 						<pre><code class="language-jsx" style="max-height: 500px;">
-							const PureComponent = ({data, children}) {
+							const PureComponent = ({data, children}) => {
 								return (
 									&lt;Scroller>
 										{children ||
@@ -311,7 +311,71 @@
 					</section>
 				</section>
 				<section>
-					<h2>Hooks & Fiber</h2>
+					<section>
+						<h2>Hooks & Fiber</h2>
+					</section>
+					<section>
+						<h3>State Hook</h3>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							function Example() {
+								const [count, setCount] = useState(0)
+								return (
+									&lt;div>
+										&lt;p>You clicked {count} times&lt;/p>
+										&lt;button onClick={()=> setCount(count + 1)}>
+											Click me
+										&lt;/button>
+									&lt;/div>
+								)
+							}
+						</code></pre>
+						<em class="fragment fade-up"><span style="text-decoration: line-through">无状态组件</span> 函数组件</em>
+					</section>
+					<section>
+						<h3>Effect Hook</h3>
+						<pre><code class="language-jsx" style="max-height: 500px;">
+							useEffect(
+								() => {
+									// do something when updated...
+									return () => {
+										// do some cleanup when unmount...
+									}
+								},
+								[...someStateNames] // skip effect if no change
+							);
+						</code></pre>
+					</section>
+					<section>
+						<h3>Fiber</h3>
+						<blockquote cite="https://zh-hans.reactjs.org/docs/faq-internals.html#what-is-react-fiber">
+							&ldquo;
+							Fiber 是 React 16 中新的协调引擎。它的主要目的是使 Virtual DOM 可以进行增量式渲染。
+							&rdquo;
+						</blockquote>
+					</section>
+					<section>
+						<img src="fiber_1.jpg" alt="">
+					</section>
+					<section>
+						<img src="fiber_2.jpg" alt="">
+					</section>
+					<section>
+						<h3>Phase 2: Commit</h3>
+						<ul>
+							<li>componentDidMount</li>
+							<li>componentDidUpdate</li>
+							<li>componentWillUnmount</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Phase 1: Reconciliation</h3>
+						<ul>
+							<li><span class="fragment">UNSAFE_</span>componentWillMount</li>
+							<li><span class="fragment">UNSAFE_</span>componentWillReceiveProps</li>
+							<li><span style="opacity: 0">UNSAFE_</span>shouldComponentUpdate</li>
+							<li><span class="fragment">UNSAFE_</span>componentWillUpdate</li>
+						</ul>
+					</section>
 				</section>
 				<section style="text-align: left">
 					<h2>The End</h2>
