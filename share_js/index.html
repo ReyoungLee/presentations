@@ -33,7 +33,7 @@
 			.reveal pre {
 				width: auto;
 			}
-			blockquote em {
+			em {
 				color: yellow
 			}
 		</style>
@@ -173,13 +173,24 @@
 					<section>
 						<h4>以及</h4>
 						<pre><code class="language-jsx">
+							typeof a <span class="fragment">// "undefined"</span>
+							a = 1 <span class="fragment">// 1</span>
+							<span class="fragment">
 							{
 								typeof a <span class="fragment">// ReferenceError: Cannot access 'a' before initialization</span>
 								a = 1 <span class="fragment">// ReferenceError: Cannot access 'a' before initialization</span>
 								let a
 							}
-							typeof a <span class="fragment">// "undefined"</span>
-							a = 1 <span class="fragment">// 1</span>
+							</span>
+						</code></pre>
+					</section>
+					<section>
+						<h4>还有</h4>
+						<pre><code class="language-jsx">
+							let a = a <span class="fragment">// ReferenceError: Cannot access 'a' before initialization</span>
+							<span class="fragment">a = 1 // ReferenceError: a is not defined</span>
+							<span class="fragment">console.log(a) // ReferenceError: a is not defined</span>
+							<span class="fragment">var a // SyntaxError: Identifier 'a' has already been declared</span>
 						</code></pre>
 					</section>
 					<section>
@@ -224,24 +235,45 @@
 							<em>The variables are created when their containing Lexical Environment is instantiated but may not be accessed in any way until
 							the variable’s LexicalBinding is evaluated. </em>
 							&rdquo;
-							<span class="fragment">(it's TDZ)</span>
+							<span class="fragment">(这不是TDZ么)</span>
 						</blockquote>
 					</section>
 					<section>
 						<blockquote>
-							&ldquo;
-							A variable defined by a LexicalBinding with an Initializer is assigned the
-							value of its Initializer’s AssignmentExpression when the LexicalBinding is evaluated, not when the variable is created. <br /><br />
-							If a LexicalBinding in a let declaration does not have an Initializer the variable is assigned the value undefined when
+							&ldquo;	A variable defined by a LexicalBinding with an Initializer is assigned the
+							value of its Initializer’s AssignmentExpression when the LexicalBinding is evaluated, not when the variable is created.&rdquo;<br />
+							<span class="fragment">--词法绑定时赋值，而不是变量创建时</span><br /><br />
+							&ldquo;If a LexicalBinding in a let declaration does not have an Initializer the variable is assigned the value undefined when
 							the LexicalBinding is evaluated.
 							&rdquo;
 						</blockquote>
 					</section>
 					<section>
 						<p>...and more, but nothing about hoisting</p>
+						<p>and no definition of hoisting</p>
 					</section>
 					<section>
 						<h3>总结</h3>
+						<ul>
+							<li>TDZ的存在与定义，没有争议</li>
+							<li class="fragment">后面的代码可以影响前面的代码</li>
+							<li class="fragment">一些报错：<br />
+								cannot access 'a' before <em>initialization</em> <br/>
+								'a' has already been <em>declared</em>
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>一个更靠谱结论</h3>
+						<p style="font-size: .8em; text-align: left">
+							变量的生命周期初始包含声明、初始化、赋值三个部分。<br />
+							如前文所述，<em>声明</em>会在任何代码被执行前首先被处理。<br />
+							而初始化部分，对于var会跟着声明一起提升，let和const则不会。<br />
+							对于function，这三个部分都会提升。<br />
+							<span style="font-style: italic">ps: const只有声明和初始化两个部分</span>
+						</p>
 					</section>
 				</section>
 				<section style="text-align: left">
