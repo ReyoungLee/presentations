@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>About JS</title>
+		<link rel="stylesheet" href="../css/reveal.css">
+		<link rel="stylesheet" href="../plugin/highlight/prism.css">
+		
+		<link rel="stylesheet" href="../css/theme/league.css">
+		<!-- <link rel="stylesheet" href="../css/theme/white.css"> -->
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="../lib/css/zenburn.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../css/print/pdf.css' : '../css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+			.nowrap {
+				white-space: nowrap!important;
+			}
+			.reveal h2, .reveal h3, .reveal h4 {
+				text-transform: none;
+			}
+			.reveal blockquote {
+				width: 90%;
+				text-align: left;
+			}
+			.reveal pre {
+				width: auto;
+			}
+			blockquote em {
+				color: yellow
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Javascript which you don't know: hoisting</h2>
+				</section>
+				<!-- <section>
+					<h3>简介</h3>
+					<ul>
+						<li>提升</li>
+						<li>面向对象 or 面向委托</li>
+						<li>类型转换</li>
+					</ul>
+				</section> -->
+				<section>
+					<section>
+						<h3>提升：先有鸡还是先有蛋</h3>
+					</section>
+					<section>
+						<!-- <h3>先有鸡还是先有蛋</h3> -->
+						<pre><code class="language-jsx">
+							a = 2
+							var a
+							console.log(a)
+							<span class="fragment">// output: 2</span>
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="language-jsx">
+							console.log(a)
+							var a = 2
+							<span class="fragment">// output: undefined</span>
+						</code></pre>
+					</section>
+					<section>
+						<h3>so...提升:</h3>
+						<blockquote>
+							&ldquo;
+							变量和函数在内的所有<em>声明</em>都会在任何代码被执行前首先被处理
+							&rdquo;
+						</blockquote>
+					</section>
+					<section>
+						<h4>提升后的代码</h4>
+						<pre><code class="language-jsx">
+							var a
+							a = 2
+							console.log(a)
+						</code></pre>
+						<pre><code class="language-jsx">
+							var a
+							console.log(a)
+							a = 2
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>函数表达式</h3>
+						<pre><code class="language-jsx">
+							foo() <span class="fragment">// TypeError: foo is not a function</span>
+							var foo = function bar() {
+								// ...
+							}
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="language-jsx">
+							foo() <span class="fragment">// ReferenceError: foo is not defined</span>
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="language-jsx">
+							bar() <span class="fragment">// ReferenceError: bar is not defined</span>
+							var foo = function bar() {
+								// ...
+							}
+						</code></pre>
+						<div style="transform: rotate(90deg)" class="fragment">
+							<span style="transform: scale(2, 1.2) translate(8px);display: inline-block; font-weight: 600;">=</span>
+							<span style="transform: scaleY(2.1) translate(0, -1px);display: inline-block;">></span>
+						</div>
+						<pre class="fragment"><code class="language-jsx">
+							var foo
+							bar() // ReferenceError
+							foo = function() {
+							var bar = ...self...
+								// ...
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h4>函数优先</h4>
+						<pre><code class="language-jsx">
+							foo() <span class="fragment">// output: 1</span>
+							function foo() {
+								console.log( 1 )
+							}
+							var foo
+							foo = function() {
+								console.log( 2 )
+							}
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Let (& Const)</h3>
+						<h4>——块作用域声明</h4>
+					</section>
+					<section>
+						<h4>据说：let是不存在变量提升的</h4>
+						<pre><code class="language-jsx">
+							{
+								console.log( a ) // undefined
+								console.log( b ) // ReferenceError!
+								<span class="fragment">console.log( c ) // ReferenceError!</span>
+								var a
+								let b
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h4>然后</h4>
+						<pre><code class="language-jsx">
+							let a = 1
+							{
+								a = 2 <span class="fragment">// ReferenceError: Cannot access 'a' before initialization</span>
+								let a
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h4>以及</h4>
+						<pre><code class="language-jsx">
+							{
+								typeof a <span class="fragment">// ReferenceError: Cannot access 'a' before initialization</span>
+								a = 1 <span class="fragment">// ReferenceError: Cannot access 'a' before initialization</span>
+								let a
+							}
+							typeof a <span class="fragment">// "undefined"</span>
+							a = 1 <span class="fragment">// 1</span>
+						</code></pre>
+					</section>
+					<section>
+						<h4>原因</h4>
+						<blockquote>
+							&ldquo;
+							Temporal Dead Zone，TDZ: 从作用域顶端到let声明之前的区域
+							&rdquo;<br />
+							--此区域内不可访问变量
+						</blockquote>
+						<span class="fragment">emmm...这不是提升么？</span>
+					</section>
+					<section>
+						<h4>曾经的MDN Doc: </h4>
+						<blockquote>
+							&ldquo;
+							In ECMAScript 2015, <em>let do not support Variable Hoisting</em>, which means the declarations made using "let", do not move to
+							the top of the execution block.
+							&rdquo;
+						</blockquote>
+					</section>
+					<section>
+						<h4>最新版 唯一提到hoist</h4>
+						<blockquote>
+							&ldquo;
+							However, this combination of var and let declaration below is a SyntaxError due to var being hoisted to the top of the
+							block. This results in an implicit re-declaration of the variable.
+							&rdquo;
+						</blockquote>
+						<pre><code class="language-jsx">
+							let x = 1;
+							if (true) {
+								var x = 2; // SyntaxError for re-declaration
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h4>ECMA-262 13.3.1 Let and Const Declarations</h4>
+						<blockquote>
+							&ldquo;
+							let and const declarations define variables that are scoped to the running execution context’s LexicalEnvironment. <br /><br />
+							<em>The variables are created when their containing Lexical Environment is instantiated but may not be accessed in any way until
+							the variable’s LexicalBinding is evaluated. </em>
+							&rdquo;
+							<span class="fragment">(it's TDZ)</span>
+						</blockquote>
+					</section>
+					<section>
+						<blockquote>
+							&ldquo;
+							A variable defined by a LexicalBinding with an Initializer is assigned the
+							value of its Initializer’s AssignmentExpression when the LexicalBinding is evaluated, not when the variable is created. <br /><br />
+							If a LexicalBinding in a let declaration does not have an Initializer the variable is assigned the value undefined when
+							the LexicalBinding is evaluated.
+							&rdquo;
+						</blockquote>
+					</section>
+					<section>
+						<p>...and more, but nothing about hoisting</p>
+					</section>
+					<section>
+						<h3>总结</h3>
+					</section>
+				</section>
+				<section style="text-align: left">
+					<h2>The End</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="../lib/js/head.min.js"></script>
+		<script src="../js/reveal.js"></script>
+		<script>
+			Reveal.initialize({
+				history: true,
+				transition: 'convex',
+				dependencies: [
+					{ src: '../plugin/markdown/marked.js' },
+					{ src: '../plugin/markdown/markdown.js' },
+					{ src: '../plugin/notes/notes.js', async: true },
+					// { src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: '../plugin/highlight/prism.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
